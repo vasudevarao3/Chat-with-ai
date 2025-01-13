@@ -13,7 +13,7 @@ class Dashboard:
         self.db = self.client["chat-with-ai"]
         self.history_collection = self.db["history"]
         user_history = self.history_collection.find_one({"user_id": st.session_state["username"]})
-        if len(user_history["history"])>0:
+        if user_history:
             st.session_state["session_id"] = len(user_history["history"])-1
         else:
             st.session_state["session_id"] = 0
