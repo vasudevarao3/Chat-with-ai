@@ -10,7 +10,7 @@ class Dashboard:
         # MongoDB connection setup
         load_dotenv()
         self.client = MongoClient(os.environ.get("MONGO_CONNECTION_STRING"))
-        self.db = self.client["financial-chat-bot"]
+        self.db = self.client["chat-with-ai"]
         self.history_collection = self.db["history"]
         user_history = self.history_collection.find_one({"user_id": st.session_state["username"]})
         if len(user_history["history"])>0:
