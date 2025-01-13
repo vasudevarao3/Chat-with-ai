@@ -12,7 +12,7 @@ class LogInSignUp:
         load_dotenv()
         # MongoDB connection setup
         self.client = MongoClient(os.environ.get("MONGO_CONNECTION_STRING"))
-        self.db = self.client["financial-chat-bot"]
+        self.db = self.client["chat-with-ai"]
         self.auth_collection = self.db["auth"]
         self.history_collection = self.db["history"]
         print(f"Connected to MongoDB database: {self.db.name} and collections: {self.auth_collection.name}, {self.history_collection.name}")

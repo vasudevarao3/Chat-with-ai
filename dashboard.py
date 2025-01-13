@@ -2,7 +2,7 @@ import streamlit as st
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
-from llm import OPENAI_LLM
+from llm import OPENAI_LLM, GEMINI_LLM
 
 
 class Dashboard:
@@ -110,6 +110,10 @@ class Dashboard:
 
             st.header("Chat Application")
             st.write("-"*50)
+
+            model = st.selectbox("Select a model", ["OpenAI", "GEMINI"])
+
+            st.write("-"*50)
             st.subheader("Chat Sessions")
             if st.button("Add New Chat"):
                 new_session_id = self.create_new_session(user_id)
@@ -145,7 +149,10 @@ class Dashboard:
 
         query = st.text_input("Enter text")
         if st.button("Submit") and query.strip():
-            ai_response = OPENAI_LLM().get_response(conversation_history, query)
+            if model == "OpenAI":
+                ai_response = OPENAI_LLM().get_response(conversation_history, query)
+            elif model == "GEMINI":
+                ai_response = GEMINI_LLM().get_response(conversation_history, query)
             st.write(f"AI: {ai_response}")
 
             self.append_conversation(user_id, session_id+1, query, ai_response)
